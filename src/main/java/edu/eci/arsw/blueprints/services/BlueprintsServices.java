@@ -71,7 +71,19 @@ public class BlueprintsServices {
             return buePrintByAuthor;
         }
     }
+    public Set<Blueprint> getSpecificBlueprint(String author, String bpName) throws BlueprintNotFoundException {
+        Set<Blueprint> buePrintByAuthor = bpp.getSpecificBlueprint(author,bpName);
+        if (buePrintByAuthor == null){
+            throw new  BlueprintNotFoundException("Not found BluePrint from this author or this Blueprint name");
+        }else {
+            return buePrintByAuthor;
+        }
+    }
 
 
-    
+    public void setBluePrint(String author, String bpname) throws BlueprintNotFoundException{
+        bpp.setSpecificBlueprint(author,bpname);
+
+
+    }
 }

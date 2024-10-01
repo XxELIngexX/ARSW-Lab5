@@ -12,11 +12,7 @@ import edu.eci.arsw.blueprints.persistence.BlueprintPersistenceException;
 import edu.eci.arsw.blueprints.persistence.BlueprintsPersistence;
 import org.springframework.stereotype.Service;
 
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
-
+import java.util.*;
 
 
 /**
@@ -89,6 +85,40 @@ public class InMemoryBlueprintPersistence implements BlueprintsPersistence{
 
 
     }
+
+    @Override
+    public Set<Blueprint> getSpecificBlueprint(String author, String bpName) throws BlueprintNotFoundException{
+        Set<Blueprint> authorBp = new HashSet<>();
+
+        for(Map.Entry<Tuple<String, String>, Blueprint> tupleToSearch : blueprints.entrySet()){
+            if (tupleToSearch.getValue().getAuthor().equals(author) && tupleToSearch.getValue().getName().equals(bpName) ){
+                authorBp.add(tupleToSearch.getValue());
+            }
+        }
+        if (authorBp.isEmpty()){
+            throw new  BlueprintNotFoundException("Not found BluePrint from this author.");
+        }else{
+            return authorBp;
+
+        }
+
+    }
+    public void setSpecificBlueprint(String author, String bpname) throws BlueprintNotFoundException {
+        ArrayList<Blueprint> authorBp = new ArrayList<>();
+        for(Map.Entry<Tuple<String, String>, Blueprint> tupleToSearch : blueprints.entrySet()){
+            if (tupleToSearch.getValue().getAuthor().equals(author) && tupleToSearch.getValue().getName().equals(bpname) ){
+                authorBp.add(tupleToSearch.getValue());
+            }
+        }
+        if (authorBp.isEmpty()){
+            throw new  BlueprintNotFoundException("Not found BluePrint from this author.");
+        }else {
+            authorBp.get(0).setAuthor(author);
+            authorBp.get(0).setAuthor(bpname);
+        }
+
+    }
+
     @Override
 
     public Set<Blueprint> getAllBlueprint() throws BlueprintNotFoundException{

@@ -5,13 +5,12 @@
  */
 package edu.eci.arsw.blueprints.controllers;
 
+import edu.eci.arsw.blueprints.model.Blueprint;
 import edu.eci.arsw.blueprints.services.BlueprintsServices;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 /**
  *
@@ -27,13 +26,49 @@ public class BlueprintAPIController {
     @RequestMapping(method = RequestMethod.GET)
     public ResponseEntity<?> getBluePrints() {
         try {
-            //obtener datos que se enviarán a través del API
             return new ResponseEntity<>(blueprintsServices.getAllBlueprints(), HttpStatus.OK);
         } catch (Exception ex) {
             return new ResponseEntity<>("Not Found", HttpStatus.NOT_FOUND);
         }
     }
+    @RequestMapping(value = "/{author}",method = RequestMethod.GET)
+    public ResponseEntity<?> getBluePrintByAuthor(@PathVariable String author){
+        try{
+            return  new ResponseEntity<>(blueprintsServices.getBlueprintsByAuthor(author),HttpStatus.OK);
+        }
+        catch (Exception e){
+            return new ResponseEntity<>("Not Found", HttpStatus.NOT_FOUND);
+        }
+    }
+    @RequestMapping(value = "/{author}/{bpname}", method = RequestMethod.GET)
+    public ResponseEntity<?> getSpecificBluePrint(@PathVariable String author, @PathVariable String bpname) {
 
+        try{
+            return  new ResponseEntity<>(blueprintsServices.getSpecificBlueprint(author,bpname),HttpStatus.OK);
+        }
+        catch (Exception e){
+            return new ResponseEntity<>("Not Found", HttpStatus.NOT_FOUND);
+        }
+    }
+    @RequestMapping(value = "/add", method = RequestMethod.POST)
+    public ResponseEntity<?> addBlueprint(@RequestBody Blueprint blueprint){
+        try {
+            blueprintsServices.addNewBlueprint(blueprint);
+            return new ResponseEntity<>("Created ", HttpStatus.CREATED);
+        } catch (Exception e) {
+            return new ResponseEntity<>("Not Created ", HttpStatus.FORBIDDEN);
+        }
+    }
+    @RequestMapping(value = "/{author}/{bpname}", method = RequestMethod.PUT)
+    public ResponseEntity<?> setBluePrint(@PathVariable String author, @PathVariable String bpname) {
+
+        try{
+            return  new ResponseEntity<>(blueprintsServices.setBluePrint(author,bpname),HttpStatus.OK);
+        }
+        catch (Exception e){
+            return new ResponseEntity<>("Not Found", HttpStatus.NOT_FOUND);
+        }
+    }
 
 }
 

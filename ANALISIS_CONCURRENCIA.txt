@@ -1,0 +1,7 @@
+¿Qué condiciones de carrera se podrían presentar?
+
+Las condiciones de carrera que se pueden presentar son que al momento de agregar un plano se intenten modificar el plano y sus caracteristicas
+
+¿Cuales son las respectivas regiones críticas?
+
+La región crítica se encuentra en la colección de planos presente en las implementaciones del servicio de persistencia, InMemoryBlueprintPersistence. En esta colección se registran todos los planos, por lo cual es usada por las distintas operaciones como registrar, actualizar y consultar

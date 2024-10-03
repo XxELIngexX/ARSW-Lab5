@@ -2,6 +2,7 @@
 
 ### Arquitecturas de Software
 
+Integrantes : CESAR DAVID AMAYA GOMEZ y TELLEZ AVILA MIGUEL CAMILO
 
 
 #### API REST para la gestión de planos.

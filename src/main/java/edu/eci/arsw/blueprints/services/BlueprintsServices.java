@@ -12,6 +12,8 @@ import edu.eci.arsw.blueprints.persistence.BlueprintsPersistence;
 import edu.eci.arsw.blueprints.persistence.impl.InMemoryBlueprintPersistence;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.beans.factory.annotation.Qualifier;
+
 
 import java.util.Set;
 
@@ -23,6 +25,8 @@ import java.util.Set;
 public class BlueprintsServices {
 
     @Autowired
+    @Qualifier("Memory")
+
     BlueprintsPersistence bpp = new InMemoryBlueprintPersistence();
     
     public void addNewBlueprint(Blueprint bp) throws BlueprintPersistenceException {
@@ -85,5 +89,12 @@ public class BlueprintsServices {
         bpp.setSpecificBlueprint(author,bpname);
 
 
+    }
+
+    public void updateBluePrint(String author, String bpname, List<Point> points) throws BlueprintNotFoundException {
+        Blueprint bp = getBlueprint(author,bpname);
+        System.out.println("Before: "+bp.toString());
+        bp.setPoints(points);
+        System.out.println("After: "+bp.toString());
     }
 }

@@ -63,7 +63,7 @@ public class BlueprintAPIController {
     public ResponseEntity<?> setBluePrint(@PathVariable String author, @PathVariable String bpname) {
 
         try{
-            return  new ResponseEntity<>(blueprintsServices.setBluePrint(author,bpname),HttpStatus.OK);
+            return new ResponseEntity<>(HttpStatus.OK);
         }
         catch (Exception e){
             return new ResponseEntity<>("Not Found", HttpStatus.NOT_FOUND);
